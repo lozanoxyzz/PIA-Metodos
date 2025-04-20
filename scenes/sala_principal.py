@@ -20,20 +20,56 @@ def sala_principal(pantalla, ANCHO, ALTO):
     paredes = []
 
     # Pared superior completa (consolas, no hay puerta)
-    paredes.append(pygame.Rect(0, 0, ANCHO, 200))
+    paredes.append(pygame.Rect(
+        0,
+        0,
+        ANCHO,
+        int(ALTO * 200 / 768)
+    ))
 
     # Pared izquierda excepto puerta
-    paredes.append(pygame.Rect(0, 200, 135, 122))      # tramo superior sin puerta
-    paredes.append(pygame.Rect(0, 600, 135, ALTO - 600))  # tramo inferior sin puerta
+    paredes.append(pygame.Rect(
+        0,
+        int(ALTO * 200 / 768),
+        int(ANCHO * 135 / 1366),
+        int(ALTO * 130 / 768)
+    ))
+    paredes.append(pygame.Rect(
+        0,
+        int(ALTO * 440 / 768),
+        int(ANCHO * 135 / 1366),
+        int(ALTO * 280 / 768)
+    ))
 
     # Pared derecha excepto puerta
-    paredes.append(pygame.Rect(ANCHO - 60, 0, 60, 250))
-    paredes.append(pygame.Rect(ANCHO - 60, 430, 60, ALTO - 430))
+    paredes.append(pygame.Rect(
+        int(ANCHO * 1228 / 1366),
+        0,
+        int(ANCHO * 140 / 1366),
+        int(ALTO * 340 / 768)
+    ))
+    paredes.append(pygame.Rect(
+        int(ANCHO * 1228 / 1366),
+        int(ALTO * 440 / 768),
+        int(ANCHO * 140 / 1366),
+        int(ALTO * 280 / 768)
+    ))
 
     # Pared inferior excepto puerta al centro
-    paredes.append(pygame.Rect(0, ALTO - 60, ANCHO // 2 - 100, 60))           # izquierda
-    paredes.append(pygame.Rect(ANCHO // 2 + 100, ALTO - 60, ANCHO, 60))       # derecha
+    paredes.append(pygame.Rect(
+        0,
+        int(ALTO * 633 / 768),
+        int(ANCHO * 620 / 1366),
+        int(ALTO * 130 / 768)
+    ))
+    paredes.append(pygame.Rect(
+        int(ANCHO * 750 / 1366),
+        int(ALTO * 633 / 768),
+        int(ANCHO * 600 / 1366),
+        int(ALTO * 130 / 768)
+    ))
 
+    
     jugando = True
     while jugando:
         for evento in pygame.event.get():
