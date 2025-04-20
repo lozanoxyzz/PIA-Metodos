@@ -53,9 +53,6 @@ class FondoEspacial:
         tamaño = int(200 * escala)
         self.nave_imagen = pygame.transform.scale(original, (tamaño, tamaño))
 
-        # Escala la nave a un tamaño manejable
-        self.nave_imagen = pygame.transform.scale(original, (200, 200))
-
         # Posición inicial de la nave
         self.nave_x = 0
         self.nave_velocidad = 1.0  # Velocidad horizontal
