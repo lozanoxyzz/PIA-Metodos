@@ -1,37 +1,30 @@
-# Example file showing a basic pygame "game loop"
 import pygame
-from settings import *
-import random
-import time
-from game import Game
+import sys
+from scenes.menu import mostrar_menu
+from scenes.juego import jugar
+from config import FPS, NOMBRE_JUEGO
+from scenes.sala_principal import sala_principal
 
+# Inicializar Pygame
+pygame.init()
 
-def main():
-    # pygame setup
-    pygame.init()
-    pygame.mixer.init()
-    pygame.font.init()
+# Obtener resolución de pantalla
+info = pygame.display.Info()
+ANCHO, ALTO = info.current_w, info.current_h
 
-    screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
-    pygame.display.set_caption(WINDOW_TITLE)
-    clock = pygame.time.Clock()
+pantalla = pygame.display.set_mode((ANCHO, ALTO), pygame.FULLSCREEN)
+pygame.display.set_caption(NOMBRE_JUEGO)
+clock = pygame.time.Clock()
 
-    game = Game(screen)
-    game.render_menu()
+escena_actual = "menu"
 
-    running = True
-    while running:
-        # poll for events
-        # pygame.QUIT event means the user clicked X to close your window
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
+while True:
+    if escena_actual == "menu":
+        escena_actual = mostrar_menu(pantalla, ANCHO, ALTO)
+    elif escena_actual == "juego":
+        escena_actual = sala_principal(pantalla, ANCHO, ALTO)# 👈 Aquí se llama a la Sala Principal
+    elif escena_actual == "salir":
+        pygame.quit()
+        sys.exit()
 
-        game.render()
-        pygame.display.flip()
-
-        clock.tick(FPS)  # limits FPS to 60
-
-    pygame.quit()
-
-main()
+    clock.tick(FPS)
