@@ -40,7 +40,7 @@ class Estrella:
         # Dibuja un pequeño círculo como estrella
         pygame.draw.circle(pantalla, self.color, (int(self.x), int(self.y)), self.tamano)
 class FondoEspacial:
-    def __init__(self, pantalla, ancho, alto, cantidad_estrellas=100):
+    def __init__(self, pantalla, ancho, alto, cantidad_estrellas=100, escala=1.0):
         self.pantalla = pantalla
         self.ancho = ancho
         self.alto = alto
@@ -50,6 +50,8 @@ class FondoEspacial:
 
         # Carga la imagen de la nave
         original = pygame.image.load("assets/imagenes/nave-menu2.png").convert_alpha()
+        tamaño = int(200 * escala)
+        self.nave_imagen = pygame.transform.scale(original, (tamaño, tamaño))
 
         # Escala la nave a un tamaño manejable
         self.nave_imagen = pygame.transform.scale(original, (200, 200))
