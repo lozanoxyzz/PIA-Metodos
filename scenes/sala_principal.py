@@ -1,4 +1,4 @@
-def sala_principal(pantalla, ANCHO, ALTO):
+def sala_principal(pantalla, ANCHO, ALTO, entrada_por="menu"):
     import pygame
     import sys
     from utils.personaje import Personaje  # Importar clase Personaje
@@ -12,7 +12,24 @@ def sala_principal(pantalla, ANCHO, ALTO):
 
     # Crear personaje
     escala = min(ANCHO / 1366, ALTO / 768)
-    personaje = Personaje(x=ANCHO // 2, y=ALTO // 2, alto_pantalla=ALTO, escala=escala)
+
+    if entrada_por == "menu":
+        personaje = Personaje(x=ANCHO // 2, y=ALTO // 2, alto_pantalla=ALTO, escala=escala)
+
+    elif entrada_por == "propulsion":
+        personaje = Personaje(
+            x=int(ANCHO * 1100 / 1366),  # Justo saliendo de la puerta derecha
+            y=int(ALTO * 350 / 768),
+            alto_pantalla=ALTO,
+            escala=escala
+        )
+
+    # Puedes agregar más entradas aquí si en el futuro conectas más puertas:
+    # elif entrada_por == "energia":
+    #     personaje = Personaje(...)
+
+    else:
+        personaje = Personaje(x=ANCHO // 2, y=ALTO // 2, alto_pantalla=ALTO, escala=escala)
 
     # Áreas bloqueadas (paredes sin puertas)
     paredes = []
@@ -94,10 +111,7 @@ def sala_principal(pantalla, ANCHO, ALTO):
         pantalla.blit(fondo, (0, 0))
         personaje.dibujar(pantalla)
 
-        # (opcional) Dibujar áreas bloqueadas para depuración
-        for pared in paredes:
-            pygame.draw.rect(pantalla, (255, 0, 0), pared, 2)
-
+        
         # Detectar entrada por la puerta derecha (a Sala de Propulsión)
         puerta_derecha_rect = pygame.Rect(
             int(ANCHO * 1228 / 1366),
@@ -106,8 +120,15 @@ def sala_principal(pantalla, ANCHO, ALTO):
             int(ALTO * 140 / 768)
         )
 
+        # (opcional) Dibujar áreas bloqueadas para depuración
+        for pared in paredes:
+            pygame.draw.rect(pantalla, (255, 0, 0), pared, 2)
+        
+        pygame.draw.rect(pantalla, (0, 255, 0), puerta_derecha_rect, 2)
+
+
         if personaje_rect.colliderect(puerta_derecha_rect):
-            return "sala_propulsion" 
+            return ("sala_propulsion", "principal")
 
         pygame.display.flip()
         clock.tick(FPS)

@@ -24,7 +24,7 @@ def mostrar_menu(pantalla, ancho, alto):
                 return "salir"
             if evento.type == pygame.MOUSEBUTTONDOWN:
                 if boton_jugar.collidepoint(evento.pos):
-                    return "juego"
+                    return ("sala_principal", "menu")
                 if boton_salir.collidepoint(evento.pos):
                     return "salir"
 

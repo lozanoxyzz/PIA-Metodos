@@ -2,12 +2,28 @@ import pygame
 import sys
 from utils.personaje import Personaje
 
-def sala_propulsion(pantalla, ANCHO, ALTO):
+def sala_propulsion(pantalla, ANCHO, ALTO, entrada_por="principal"):
     fondo = pygame.image.load("Assets/imagenes/sala_propulsion.png").convert()
     fondo = pygame.transform.scale(fondo, (ANCHO, ALTO))
 
     escala = min(ANCHO / 1366, ALTO / 768)
-    jugador = Personaje(x=200, y=300, alto_pantalla=ALTO, escala=escala)
+    
+    if entrada_por == "principal":
+        jugador = Personaje(
+            x=int(ANCHO * 165 / 1366),  # Justo saliendo de la puerta izquierda
+            y=int(ALTO * 290 / 768),
+            alto_pantalla=ALTO,
+            escala=escala
+        )
+    elif entrada_por == "energia":
+        jugador = Personaje(
+            x=int(ANCHO * 650 / 1366),  # Justo saliendo de la puerta inferior
+            y=int(ALTO * 470 / 768),
+            alto_pantalla=ALTO,
+            escala=escala
+        )
+    else:
+        jugador = Personaje(x=ANCHO // 2, y=ALTO // 2, alto_pantalla=ALTO, escala=escala)
 
     # 🟩 Puerta izquierda
     puerta_izquierda = pygame.Rect(
@@ -111,10 +127,11 @@ def sala_propulsion(pantalla, ANCHO, ALTO):
         pygame.draw.rect(pantalla, (255, 255, 0), puerta_inferior, 2)
 
         if jugador.rect.colliderect(puerta_izquierda):
-            return "juego"
+            return ("sala_principal", "propulsion")
 
         if jugador.rect.colliderect(puerta_inferior):
-            return "sala_energia"
+            return ("sala_energia", "propulsion")
+
 
         pygame.display.flip()
         reloj.tick(60)

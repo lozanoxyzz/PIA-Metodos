@@ -2,18 +2,28 @@ import pygame
 import sys
 from utils.personaje import Personaje
 
-def sala_energia(pantalla, ANCHO, ALTO):
+def sala_energia(pantalla, ANCHO, ALTO, entrada_por="propulsion"):
     fondo = pygame.image.load("Assets/imagenes/sala_energia.png").convert()
     fondo = pygame.transform.scale(fondo, (ANCHO, ALTO))
 
     escala = min(ANCHO / 1366, ALTO / 768)
-    
-    jugador = Personaje(
-    x=int(ANCHO * 760 / 1366),
-    y=int(ALTO * 120 / 768),
-    alto_pantalla=ALTO,
-    escala=escala
-    )
+    # 📍 Posicionar al personaje según desde dónde entra
+    if entrada_por == "propulsion":
+        jugador = Personaje(
+            x=int(ANCHO * 650 / 1366),
+            y=int(ALTO * 140 / 768),
+            alto_pantalla=ALTO,
+            escala=escala
+        )
+    elif entrada_por == "otra_sala":
+        jugador = Personaje(
+            x=int(ANCHO * 670 / 1366),
+            y=int(ALTO * 120 / 768),
+            alto_pantalla=ALTO,
+            escala=escala
+        )
+    else:
+        jugador = Personaje(x=ANCHO // 2, y=ALTO // 2, alto_pantalla=ALTO, escala=escala)
 
     # 🟩 Puerta izquierda
     puerta_izquierda = pygame.Rect(
@@ -25,10 +35,10 @@ def sala_energia(pantalla, ANCHO, ALTO):
 
     # 🟦 Puerta superior
     puerta_superior = pygame.Rect(
-        int(ANCHO * 690 / 1366),
+        int(ANCHO * 564 / 1366),
         0,
-        int(ANCHO * 180 / 1366),
-        int(ALTO * 100 / 768)
+        int(ANCHO * 235 / 1366),
+        int(ALTO * 120 / 768)
     )
 
     # 🧱 Paredes bloqueadas (ajustar con la imagen final si cambian elementos)
@@ -52,19 +62,19 @@ def sala_energia(pantalla, ANCHO, ALTO):
     paredes.append(pygame.Rect(
         0,
         0,
-        int(ANCHO * 680 / 1366),
-        int(ALTO * 100 / 768)
+        int(ANCHO * 563 / 1366),
+        int(ALTO * 190 / 768)
     ))
     paredes.append(pygame.Rect(
-        int(ANCHO * 870 / 1366),
+        int(ANCHO * 800 / 1366),
         0,
-        int(ANCHO * 500 / 1366),
-        int(ALTO * 100 / 768)
+        int(ANCHO * 800 / 1366),
+        int(ALTO * 190 / 768)
     ))
 
     # Pared derecha completa
     paredes.append(pygame.Rect(
-        int(ANCHO * 1260 / 1366),
+        int(ANCHO * 1290 / 1366),
         0,
         int(ANCHO * 120 / 1366),
         ALTO
@@ -73,10 +83,18 @@ def sala_energia(pantalla, ANCHO, ALTO):
     # Pared inferior completa
     paredes.append(pygame.Rect(
         0,
-        int(ALTO * 940 / 768),
+        int(ALTO * 675 / 768),
         ANCHO,
         int(ALTO * 100 / 768)
     ))
+
+    cuadro_central = pygame.Rect(
+        ANCHO // 2 - 150,  # centro menos la mitad del ancho
+        ALTO // 2 - 80,   # centro menos la mitad del alto
+        300,
+        250
+    )
+    paredes.append(cuadro_central)
 
     reloj = pygame.time.Clock()
     while True:
@@ -106,11 +124,14 @@ def sala_energia(pantalla, ANCHO, ALTO):
         # Visualizar paredes (colisiones)
         for pared in paredes:
             pygame.draw.rect(pantalla, (255, 0, 0), pared, 2)            # Rojo = pared (colisión)
+       
+        pygame.draw.rect(pantalla, (255, 0, 0), cuadro_central, 2)
+
         if jugador.rect.colliderect(puerta_izquierda):
-            return "sala_propulsion"
+            return ("otra_sala", "energia")
 
         if jugador.rect.colliderect(puerta_superior):
-            return "otra_sala"  # Reemplaza con la sala correspondiente
+            return ("sala_propulsion", "energia")  # Reemplaza con la sala correspondiente
 
         pygame.display.flip()
         reloj.tick(60)
