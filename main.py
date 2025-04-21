@@ -30,4 +30,6 @@ while True:
     elif escena_actual == "sala_propulsion":
         escena_actual = sala_propulsion(pantalla, ANCHO, ALTO)
 
+
+    #Muestra FPS
     clock.tick(FPS)
