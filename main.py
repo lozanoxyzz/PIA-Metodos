@@ -5,6 +5,8 @@ from scenes.juego import jugar
 from config import FPS, NOMBRE_JUEGO
 from scenes.sala_principal import sala_principal
 from scenes.sala_propulsion import sala_propulsion
+from scenes.sala_energia import sala_energia
+
 
 # Inicializar Pygame
 pygame.init()
@@ -29,5 +31,7 @@ while True:
         sys.exit()
     elif escena_actual == "sala_propulsion":
         escena_actual = sala_propulsion(pantalla, ANCHO, ALTO)
+    elif escena_actual == "sala_energia":
+        escena_actual = sala_energia(pantalla, ANCHO, ALTO)
 
     clock.tick(FPS)
