@@ -51,7 +51,7 @@ def sala_comunicaciones(pantalla, ANCHO, ALTO, entrada_por="principal"):
         int(ALTO * 190 / 768)
     )
 
-    # 🟦 Puerta superior
+    # 🟦 Puerta inferior
     puerta_inferior = pygame.Rect(
         int(ANCHO * 564 / 1366),
         int(ALTO * 650 / 768),
@@ -155,6 +155,9 @@ def sala_comunicaciones(pantalla, ANCHO, ALTO, entrada_por="principal"):
 
         if jugador.rect.colliderect(puerta_superior):
             return ("sala_principal", "sala_comunicaciones")  # Reemplaza con la sala correspondiente
+        
+        if jugador.rect.colliderect(puerta_inferior):
+            return ("sala_almacenamiento", "sala_comunicaciones")
 
         pygame.display.flip()
         reloj.tick(60)

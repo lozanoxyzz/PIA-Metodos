@@ -6,6 +6,7 @@ from scenes.sala_principal import sala_principal
 from scenes.sala_propulsion import sala_propulsion
 from scenes.sala_energia import sala_energia
 from scenes.sala_comunicaciones import sala_comunicaciones
+from scenes.sala_almacenamiento import sala_almacenamiento
 
 pygame.init()
 info = pygame.display.Info()
@@ -41,6 +42,9 @@ while True:
 
     elif escena == "sala_comunicaciones":
         escena_actual = sala_comunicaciones(pantalla, ANCHO, ALTO, entrada_por=origen)
+        
+    elif escena == "sala_almacenamiento":
+        escena_actual = sala_almacenamiento(pantalla, ANCHO, ALTO, entrada_por=origen)
 
     elif escena == "salir":
         pygame.quit()
