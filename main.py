@@ -5,6 +5,7 @@ from config import FPS, NOMBRE_JUEGO
 from scenes.sala_principal import sala_principal
 from scenes.sala_propulsion import sala_propulsion
 from scenes.sala_energia import sala_energia
+from scenes.sala_comunicaciones import sala_comunicaciones
 
 pygame.init()
 info = pygame.display.Info()
@@ -38,8 +39,10 @@ while True:
     elif escena == "sala_energia":
         escena_actual = sala_energia(pantalla, ANCHO, ALTO, entrada_por=origen)
 
+    elif escena == "sala_comunicaciones":
+        escena_actual = sala_comunicaciones(pantalla, ANCHO, ALTO, entrada_por=origen)
+
     elif escena == "salir":
         pygame.quit()
         sys.exit()
-
     clock.tick(FPS)

@@ -24,6 +24,14 @@ def sala_principal(pantalla, ANCHO, ALTO, entrada_por="menu"):
             escala=escala
         )
 
+    elif entrada_por == "sala_comunicaciones":
+        personaje = Personaje(
+            x=int(ANCHO * 620 / 1366),  # Justo saliendo de la puerta derecha
+            y=int(ALTO * 520 / 768),
+            alto_pantalla=ALTO,
+            escala=escala
+        )
+
     # Puedes agregar más entradas aquí si en el futuro conectas más puertas:
     # elif entrada_por == "energia":
     #     personaje = Personaje(...)
@@ -112,7 +120,7 @@ def sala_principal(pantalla, ANCHO, ALTO, entrada_por="menu"):
         personaje.dibujar(pantalla)
 
         
-        # Detectar entrada por la puerta derecha (a Sala de Propulsión)
+        #Detectar entrada por la puerta derecha (a Sala de Propulsión)
         puerta_derecha_rect = pygame.Rect(
             int(ANCHO * 1228 / 1366),
             int(ALTO * 325 / 768),
@@ -120,15 +128,26 @@ def sala_principal(pantalla, ANCHO, ALTO, entrada_por="menu"):
             int(ALTO * 140 / 768)
         )
 
+        puerta_inferior_rect = pygame.Rect(
+            int(ANCHO * 618 / 1366),
+            int(ALTO * 632 / 768),
+            int(ANCHO * 133 / 1366),
+            int(ALTO * 130 / 768)
+        )
+
         # (opcional) Dibujar áreas bloqueadas para depuración
         for pared in paredes:
             pygame.draw.rect(pantalla, (255, 0, 0), pared, 2)
         
         pygame.draw.rect(pantalla, (0, 255, 0), puerta_derecha_rect, 2)
+        pygame.draw.rect(pantalla, (0, 255, 0), puerta_inferior_rect, 2)
 
 
         if personaje_rect.colliderect(puerta_derecha_rect):
-            return ("sala_propulsion", "principal")
+            return "sala_propulsion", "principal"
+
+        if personaje_rect.colliderect(puerta_inferior_rect):
+            return "sala_comunicaciones", "principal"
 
         pygame.display.flip()
         clock.tick(FPS)

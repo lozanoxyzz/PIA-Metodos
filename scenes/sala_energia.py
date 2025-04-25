@@ -15,13 +15,15 @@ def sala_energia(pantalla, ANCHO, ALTO, entrada_por="propulsion"):
             alto_pantalla=ALTO,
             escala=escala
         )
-    elif entrada_por == "otra_sala":
+
+    if entrada_por == "sala_comunicaciones":
         jugador = Personaje(
-            x=int(ANCHO * 670 / 1366),
-            y=int(ALTO * 120 / 768),
+            x=int(ANCHO * 165 / 1366),  # Justo saliendo de la puerta izquierda
+            y=int(ALTO * 290 / 768),
             alto_pantalla=ALTO,
             escala=escala
         )
+
     else:
         jugador = Personaje(x=ANCHO // 2, y=ALTO // 2, alto_pantalla=ALTO, escala=escala)
 
@@ -128,7 +130,7 @@ def sala_energia(pantalla, ANCHO, ALTO, entrada_por="propulsion"):
         pygame.draw.rect(pantalla, (255, 0, 0), cuadro_central, 2)
 
         if jugador.rect.colliderect(puerta_izquierda):
-            return ("otra_sala", "energia")
+            return ("sala_comunicaciones", "energia")
 
         if jugador.rect.colliderect(puerta_superior):
             return ("sala_propulsion", "energia")  # Reemplaza con la sala correspondiente
