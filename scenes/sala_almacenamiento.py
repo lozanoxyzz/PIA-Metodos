@@ -27,13 +27,13 @@ def sala_almacenamiento(pantalla, ANCHO, ALTO, entrada_por="principal"):
         int(ANCHO * 564 / 1366),
         0,
         int(ANCHO * 235 / 1366),
-        int(ALTO * 190 / 768)
+        int(ALTO * 90 / 768)
     )
 
     # 🟦 Puerta inferior
     puerta_inferior = pygame.Rect(
         int(ANCHO * 564 / 1366),
-        int(ALTO * 570 / 768),
+        int(ALTO * 590 / 768),
         int(ANCHO * 235 / 1366),
         int(ALTO * 190 / 768)
     )
