@@ -16,7 +16,7 @@ def sala_energia(pantalla, ANCHO, ALTO, entrada_por="propulsion"):
             escala=escala
         )
 
-    if entrada_por == "sala_comunicaciones":
+    elif entrada_por == "sala_comunicaciones":
         jugador = Personaje(
             x=int(ANCHO * 165 / 1366),  # Justo saliendo de la puerta izquierda
             y=int(ALTO * 290 / 768),

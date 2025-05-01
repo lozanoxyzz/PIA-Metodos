@@ -123,7 +123,7 @@ def sala_almacenamiento(pantalla, ANCHO, ALTO, entrada_por="principal"):
       
 
         if jugador.rect.colliderect(puerta_superior):
-            return ("sala_comunicaciones", "sala_almacenamiento")  # Reemplaza con la sala correspondiente
+            return ("sala_comunicaciones", "almacenamiento")  # Reemplaza con la sala correspondiente
         
         if jugador.rect.colliderect(puerta_inferior):
             return ("sala_almacenamiento", "sala_almacenamiento")

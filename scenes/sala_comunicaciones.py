@@ -24,6 +24,15 @@ def sala_comunicaciones(pantalla, ANCHO, ALTO, entrada_por="principal"):
             alto_pantalla=ALTO,
             escala=escala
         )
+
+    elif entrada_por == "almacenamiento":
+        jugador = Personaje(
+            x=int(ANCHO * 620 / 1366),  # Justo saliendo de la puerta derecha
+            y=int(ALTO * 520 / 768),
+            alto_pantalla=ALTO,
+            escala=escala
+        )
+
     else:
         jugador = Personaje(x=ANCHO // 2, y=ALTO // 2, alto_pantalla=ALTO, escala=escala)
 
