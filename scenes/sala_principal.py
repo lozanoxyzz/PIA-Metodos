@@ -31,7 +31,19 @@ def sala_principal(pantalla, ANCHO, ALTO, entrada_por="menu"):
             alto_pantalla=ALTO,
             escala=escala
         )
+<<<<<<< HEAD
 
+=======
+    
+    elif entrada_por == "sala_ventilacion":
+        personaje = Personaje(
+            x=int(ANCHO * 180 / 1366),  # Justo saliendo de la puerta izquierda
+            y=int(ALTO * 340 / 768),
+            alto_pantalla=ALTO,
+            escala=escala
+        )
+    
+>>>>>>> 0534d66 (Se agregó la sala de ventilación, ya solamente falta agregar una sala más)
     # Puedes agregar más entradas aquí si en el futuro conectas más puertas:
     # elif entrada_por == "energia":
     #     personaje = Personaje(...)
@@ -135,12 +147,26 @@ def sala_principal(pantalla, ANCHO, ALTO, entrada_por="menu"):
             int(ALTO * 130 / 768)
         )
 
+<<<<<<< HEAD
+=======
+        puerta_izquierda_rect = pygame.Rect(
+            int(ANCHO * 50 / 1366),
+            int(ALTO * 330 / 768),
+            int(ANCHO * 90 / 1366),
+            int(ALTO * 120 / 768)
+        )
+
+>>>>>>> 0534d66 (Se agregó la sala de ventilación, ya solamente falta agregar una sala más)
         # (opcional) Dibujar áreas bloqueadas para depuración
         for pared in paredes:
             pygame.draw.rect(pantalla, (255, 0, 0), pared, 2)
         
         pygame.draw.rect(pantalla, (0, 255, 0), puerta_derecha_rect, 2)
         pygame.draw.rect(pantalla, (0, 255, 0), puerta_inferior_rect, 2)
+<<<<<<< HEAD
+=======
+        pygame.draw.rect(pantalla, (0, 255, 0), puerta_izquierda_rect, 2)
+>>>>>>> 0534d66 (Se agregó la sala de ventilación, ya solamente falta agregar una sala más)
 
 
         if personaje_rect.colliderect(puerta_derecha_rect):
@@ -148,6 +174,12 @@ def sala_principal(pantalla, ANCHO, ALTO, entrada_por="menu"):
 
         if personaje_rect.colliderect(puerta_inferior_rect):
             return "sala_comunicaciones", "principal"
+<<<<<<< HEAD
+=======
+        
+        if personaje_rect.colliderect(puerta_izquierda_rect):
+            return "sala_ventilacion", "principal"
+>>>>>>> 0534d66 (Se agregó la sala de ventilación, ya solamente falta agregar una sala más)
 
         pygame.display.flip()
         clock.tick(FPS)
