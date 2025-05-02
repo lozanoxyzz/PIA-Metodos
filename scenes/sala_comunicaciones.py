@@ -32,6 +32,14 @@ def sala_comunicaciones(pantalla, ANCHO, ALTO, entrada_por="principal"):
             alto_pantalla=ALTO,
             escala=escala
         )
+    
+    elif entrada_por == "sala_vigilancia":
+        jugador = Personaje(
+            x=int(ANCHO * 150 / 1366),  # Justo saliendo de la puerta derecha
+            y=int(ALTO * 370 / 768),
+            alto_pantalla=ALTO,
+            escala=escala
+        )
 
     else:
         jugador = Personaje(x=ANCHO // 2, y=ALTO // 2, alto_pantalla=ALTO, escala=escala)
@@ -44,7 +52,7 @@ def sala_comunicaciones(pantalla, ANCHO, ALTO, entrada_por="principal"):
         int(ALTO * 140 / 768)
     )
 
-    # 🟩 Puerta izquierda
+    # 🟩 Puerta derecha
     puerta_derecha = pygame.Rect(
         int(ANCHO * 1220 / 1366),
         int(ALTO * 340 / 768),
@@ -161,6 +169,9 @@ def sala_comunicaciones(pantalla, ANCHO, ALTO, entrada_por="principal"):
 
         if jugador.rect.colliderect(puerta_derecha):
             return ("sala_energia", "sala_comunicaciones")
+        
+        if jugador.rect.colliderect(puerta_izquierda):
+            return ("sala_vigilancia", "sala_comunicaciones")
 
         if jugador.rect.colliderect(puerta_superior):
             return ("sala_principal", "sala_comunicaciones")  # Reemplaza con la sala correspondiente

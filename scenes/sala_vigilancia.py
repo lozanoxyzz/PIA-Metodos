@@ -2,24 +2,24 @@ import pygame
 import sys
 from utils.personaje import Personaje
 
-def sala_ventilacion(pantalla, ANCHO, ALTO, entrada_por="principal"):
-    fondo = pygame.image.load("Assets/imagenes/sala_ventilacion.png").convert()
+def sala_vigilancia(pantalla, ANCHO, ALTO, entrada_por="principal"):
+    fondo = pygame.image.load("Assets/imagenes/sala_vigilancia.png").convert()
     fondo = pygame.transform.scale(fondo, (ANCHO, ALTO))
 
     escala = min(ANCHO / 1366, ALTO / 768)
 
     # 🎮 Posición inicial del jugador según puerta de entrada
-    if entrada_por == "principal":
+    if entrada_por == "sala_ventilacion":
         jugador = Personaje(
-            x=int(ANCHO * 1100 / 1366),  # entrando por la derecha
-            y=int(ALTO * 310 / 768),
+            x=int(ANCHO * 700 / 1366),  # entrando por la derecha
+            y=int(ALTO * 250 / 768),
             alto_pantalla=ALTO,
             escala=escala
         )
-    elif entrada_por == "sala_vigilancia":
+    elif entrada_por == "sala_comunicaciones":
         jugador = Personaje(
-            x=int(ANCHO * 680 / 1366),
-            y=int(ALTO * 450 / 768),
+            x=int(ANCHO * 1100 / 1366),
+            y=int(ALTO * 350 / 768),
             alto_pantalla=ALTO,
             escala=escala
         )
@@ -34,10 +34,10 @@ def sala_ventilacion(pantalla, ANCHO, ALTO, entrada_por="principal"):
         int(ALTO * 200 / 768)
     )
 
-    # 🟩 Puerta inferior
-    puerta_inferior = pygame.Rect(
-        int(ANCHO * 570 / 1366),
-        int(ALTO * 600 / 768),
+    # 🟩 Puerta superior
+    puerta_superior = pygame.Rect(
+        int(ANCHO * 550 / 1366),
+        int(ALTO * 50 / 768),
         int(ANCHO * 230 / 1366),
         int(ALTO * 150 / 768)
     )
@@ -59,28 +59,25 @@ def sala_ventilacion(pantalla, ANCHO, ALTO, entrada_por="principal"):
         int(ALTO * 318 / 768)
     ))
 
-    # Pared inferior (excepto puerta)
+    # Pared superior (excepto puerta)
     paredes.append(pygame.Rect(
         0,
-        int(ALTO * 600 / 768),
-        int(ANCHO * 570 / 1366),
-        int(ALTO * 100 / 768)
+        int(ALTO * 50 / 768),
+        int(ANCHO * 550 / 1366),
+        int(ALTO * 160 / 768)
     ))
     paredes.append(pygame.Rect(
-        int(ANCHO * 800 / 1366),
-        int(ALTO * 580 / 768),
+        int(ANCHO * 780 / 1366),
+        int(ALTO * 50 / 768),
         int(ANCHO * 546 / 1366),
         int(ALTO * 100 / 768)
     ))
 
     # Pared izquierda completa
-    paredes.append(pygame.Rect(0, 0, int(ANCHO * 450 / 1366), int(ALTO * 200 / 768)))
-    paredes.append(pygame.Rect(0, 370, int(ANCHO * 450 / 1366), int(ALTO * 250 / 768)))
-    paredes.append(pygame.Rect(0, 210 , int(ANCHO * 330 / 1366), int(ALTO * 160 / 768)))
-
-
-    # Pared superior completa
-    paredes.append(pygame.Rect(0, 0, ANCHO, int(ALTO * 150 / 768)))
+    paredes.append(pygame.Rect(0, 0, int(ANCHO * 120 / 1366), int(ALTO * 700 / 768)))
+    
+    # Pared inferior completa
+    paredes.append(pygame.Rect(0, int(ALTO * 650 / 768), ANCHO, int(ALTO * 100 / 768)))
 
     reloj = pygame.time.Clock()
     while True:
@@ -105,7 +102,7 @@ def sala_ventilacion(pantalla, ANCHO, ALTO, entrada_por="principal"):
 
         # Visualizar puertas
         pygame.draw.rect(pantalla, (0, 128, 255), puerta_derecha, 2)     # Azul = puerta derecha
-        pygame.draw.rect(pantalla, (0, 255, 0), puerta_inferior, 2)      # Verde = puerta inferior
+        pygame.draw.rect(pantalla, (0, 255, 0), puerta_superior, 2)      # Verde = puerta inferior
 
         # Visualizar colisiones
         for pared in paredes:
@@ -113,10 +110,10 @@ def sala_ventilacion(pantalla, ANCHO, ALTO, entrada_por="principal"):
 
         # Transiciones de sala
         if jugador.rect.colliderect(puerta_derecha):
-            return ("sala_principal", "sala_ventilacion")
+            return ("sala_comunicaciones", "sala_vigilancia")
 
-        if jugador.rect.colliderect(puerta_inferior):
-            return ("sala_vigilancia", "sala_ventilacion")  # reemplaza "sala_x" con la siguiente sala real
+        if jugador.rect.colliderect(puerta_superior):
+            return ("sala_ventilacion", "sala_vigilancia")  # reemplaza "sala_x" con la siguiente sala real
 
         pygame.display.flip()
         reloj.tick(60)

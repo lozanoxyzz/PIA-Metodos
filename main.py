@@ -7,10 +7,8 @@ from scenes.sala_propulsion import sala_propulsion
 from scenes.sala_energia import sala_energia
 from scenes.sala_comunicaciones import sala_comunicaciones
 from scenes.sala_almacenamiento import sala_almacenamiento
-<<<<<<< HEAD
-=======
 from scenes.sala_ventilacion import sala_ventilacion
->>>>>>> 0534d66 (Se agregó la sala de ventilación, ya solamente falta agregar una sala más)
+from scenes.sala_vigilancia import sala_vigilancia
 
 pygame.init()
 info = pygame.display.Info()
@@ -50,12 +48,12 @@ while True:
     elif escena == "sala_almacenamiento":
         escena_actual = sala_almacenamiento(pantalla, ANCHO, ALTO, entrada_por=origen)
 
-<<<<<<< HEAD
-=======
     elif escena == "sala_ventilacion":
         escena_actual = sala_ventilacion(pantalla, ANCHO, ALTO, entrada_por=origen)
 
->>>>>>> 0534d66 (Se agregó la sala de ventilación, ya solamente falta agregar una sala más)
+    elif escena == "sala_vigilancia":
+        escena_actual = sala_vigilancia(pantalla, ANCHO, ALTO, entrada_por=origen)
+
     elif escena == "salir":
         pygame.quit()
         sys.exit()
