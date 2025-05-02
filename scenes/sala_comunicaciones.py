@@ -1,6 +1,7 @@
 import pygame
 import sys
 from utils.personaje import Personaje
+import utils.errors as errors
 
 
 def sala_comunicaciones(pantalla, ANCHO, ALTO, entrada_por="principal"):
@@ -43,6 +44,12 @@ def sala_comunicaciones(pantalla, ANCHO, ALTO, entrada_por="principal"):
 
     else:
         jugador = Personaje(x=ANCHO // 2, y=ALTO // 2, alto_pantalla=ALTO, escala=escala)
+
+    #ERRORES
+    for error in errors.errores_activos:
+        if error[0] == "comunicaciones":
+            print("comunicaciones")
+            ###PINTAR ERROR
 
     # 🟩 Puerta izquierda
     puerta_izquierda = pygame.Rect(

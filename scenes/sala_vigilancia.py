@@ -1,6 +1,7 @@
 import pygame
 import sys
 from utils.personaje import Personaje
+import utils.errors as errors
 
 def sala_vigilancia(pantalla, ANCHO, ALTO, entrada_por="principal"):
     fondo = pygame.image.load("Assets/imagenes/sala_vigilancia.png").convert()
@@ -25,6 +26,12 @@ def sala_vigilancia(pantalla, ANCHO, ALTO, entrada_por="principal"):
         )
     else:
         jugador = Personaje(x=ANCHO // 2, y=ALTO // 2, alto_pantalla=ALTO, escala=escala)
+
+    # ERRORES
+    for error in errors.errores_activos:
+        if error[0] == "vigilancia":
+            print("vigilancia")
+            ###PINTAR ERROR
 
     # 🟦 Puerta derecha
     puerta_derecha = pygame.Rect(

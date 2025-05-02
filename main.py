@@ -9,7 +9,7 @@ from scenes.sala_comunicaciones import sala_comunicaciones
 from scenes.sala_almacenamiento import sala_almacenamiento
 from scenes.sala_ventilacion import sala_ventilacion
 from scenes.sala_vigilancia import sala_vigilancia
-
+from utils.errors import error
 pygame.init()
 info = pygame.display.Info()
 ANCHO, ALTO = info.current_w, info.current_h
@@ -20,6 +20,8 @@ clock = pygame.time.Clock()
 
 escena_actual = "menu"
 origen = "menu"
+
+print(error)
 
 while True:
     if isinstance(escena_actual, tuple):

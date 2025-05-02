@@ -1,8 +1,10 @@
 import pygame
 import sys
 from utils.personaje import Personaje
+import utils.errors as errors
 
 def sala_energia(pantalla, ANCHO, ALTO, entrada_por="propulsion"):
+
     fondo = pygame.image.load("Assets/imagenes/sala_energia.png").convert()
     fondo = pygame.transform.scale(fondo, (ANCHO, ALTO))
 
@@ -26,6 +28,12 @@ def sala_energia(pantalla, ANCHO, ALTO, entrada_por="propulsion"):
 
     else:
         jugador = Personaje(x=ANCHO // 2, y=ALTO // 2, alto_pantalla=ALTO, escala=escala)
+
+    #ERRORES
+    for error in errors.errores_activos:
+        if error[0] == "energia":
+            print("energia")
+            ###PINTAR ERROR
 
     # 🟩 Puerta izquierda
     puerta_izquierda = pygame.Rect(

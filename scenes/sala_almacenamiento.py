@@ -1,6 +1,7 @@
 import pygame
 import sys
 from utils.personaje import Personaje
+import utils.errors as errors
 
 
 def sala_almacenamiento(pantalla, ANCHO, ALTO, entrada_por="principal"):
@@ -20,7 +21,12 @@ def sala_almacenamiento(pantalla, ANCHO, ALTO, entrada_por="principal"):
     else:
         jugador = Personaje(x=ANCHO // 2, y=ALTO // 2, alto_pantalla=ALTO, escala=escala)
 
-  
+
+    #ERRORES
+    for error in errors.errores_activos:
+        if error[0] == "almacenamiento":
+            print("almacenamiento")
+            ###PINTAR ERROR
 
     # 🟦 Puerta superior
     puerta_superior = pygame.Rect(
