@@ -2,11 +2,16 @@ import pygame
 import sys
 from utils.personaje import Personaje
 import utils.errors as errors
-
+sparks = []
 
 def sala_comunicaciones(pantalla, ANCHO, ALTO, entrada_por="principal"):
     fondo = pygame.image.load("Assets/imagenes/sala_comunicaciones.png").convert()
     fondo = pygame.transform.scale(fondo, (ANCHO, ALTO))
+
+    #VERIFICACION DE ERROR EXISTENTE EN LA SALA
+    for error in errors.errores_activos:
+        if error[0] == "comunicaciones":
+            emisor_chispa = errors.EmisorChispa(ANCHO * error[1][0] / 1366, ALTO * error[1][1] / 768)
 
     escala = min(ANCHO / 1366, ALTO / 768)
     # 📍 Posicionar al personaje según desde dónde entra
@@ -44,12 +49,6 @@ def sala_comunicaciones(pantalla, ANCHO, ALTO, entrada_por="principal"):
 
     else:
         jugador = Personaje(x=ANCHO // 2, y=ALTO // 2, alto_pantalla=ALTO, escala=escala)
-
-    #ERRORES
-    for error in errors.errores_activos:
-        if error[0] == "comunicaciones":
-            print("comunicaciones")
-            ###PINTAR ERROR
 
     # 🟩 Puerta izquierda
     puerta_izquierda = pygame.Rect(
@@ -140,7 +139,7 @@ def sala_comunicaciones(pantalla, ANCHO, ALTO, entrada_por="principal"):
         int(ANCHO * 800 / 1366),
         int(ALTO * 650 / 768),
         int(ANCHO * 800 / 1366),
-        int(ALTO * 190 / 768)
+        int(ALTO * 150 / 768)
     ))
 
     reloj = pygame.time.Clock()
@@ -164,11 +163,31 @@ def sala_comunicaciones(pantalla, ANCHO, ALTO, entrada_por="principal"):
         pantalla.blit(fondo, (0, 0))
         jugador.dibujar(pantalla)
 
+        #DIBUJO DE CHISPAS
+        for error in errors.errores_activos:
+            if error[0] == "comunicaciones":
+                emisor_chispa.update()
+                emisor_chispa.draw(pantalla)
+
         # Visualizar puertas
         pygame.draw.rect(pantalla, (0, 255, 0), puerta_izquierda, 2)  # Verde = puerta izquierda
         pygame.draw.rect(pantalla, (0, 128, 255), puerta_superior, 2)  # Azul = puerta superior
         pygame.draw.rect(pantalla, (0, 128, 255), puerta_inferior, 2)  # Azul = puerta inferior
         pygame.draw.rect(pantalla, (0, 255, 0), puerta_derecha, 2)  # Verde = puerta derecha
+
+        #INTERACCION
+        for error in errors.errores_activos:
+            if error[0] == "comunicaciones":
+                if emisor_chispa.jugador_cerca(jugador.rect):
+                    font = pygame.font.SysFont(None, 24)
+                    texto = font.render("Presiona F para interactuar", True, (255, 255, 255))
+                    pantalla.blit(texto, (20, 20))
+
+                    keys = pygame.key.get_pressed()
+                    if keys[pygame.K_f] and not emisor_chispa.interactuado:
+                        print("⚡ ¡Has interactuado con la chispa!")
+                        emisor_chispa.interactuado = True  # evita repetir acción
+
 
         # Visualizar paredes (colisiones)
         for pared in paredes:

@@ -2,10 +2,18 @@ import pygame
 import sys
 from utils.personaje import Personaje
 import utils.errors as errors
+sparks = []
+
+
 
 def sala_vigilancia(pantalla, ANCHO, ALTO, entrada_por="principal"):
     fondo = pygame.image.load("Assets/imagenes/sala_vigilancia.png").convert()
     fondo = pygame.transform.scale(fondo, (ANCHO, ALTO))
+
+    # VERIFICACION DE ERROR EXISTENTE EN LA SALA
+    for error in errors.errores_activos:
+        if error[0] == "vigilancia":
+            emisor_chispa = errors.EmisorChispa(ANCHO * error[1][0] / 1366, ALTO * error[1][1] / 768)
 
     escala = min(ANCHO / 1366, ALTO / 768)
 
@@ -46,7 +54,7 @@ def sala_vigilancia(pantalla, ANCHO, ALTO, entrada_por="principal"):
         int(ANCHO * 550 / 1366),
         int(ALTO * 50 / 768),
         int(ANCHO * 230 / 1366),
-        int(ALTO * 150 / 768)
+        int(ALTO * 100 / 768)
     )
 
     # 🧱 Colisiones
@@ -71,7 +79,7 @@ def sala_vigilancia(pantalla, ANCHO, ALTO, entrada_por="principal"):
         0,
         int(ALTO * 50 / 768),
         int(ANCHO * 550 / 1366),
-        int(ALTO * 160 / 768)
+        int(ALTO * 100 / 768)
     ))
     paredes.append(pygame.Rect(
         int(ANCHO * 780 / 1366),
@@ -107,9 +115,28 @@ def sala_vigilancia(pantalla, ANCHO, ALTO, entrada_por="principal"):
         pantalla.blit(fondo, (0, 0))
         jugador.dibujar(pantalla)
 
+        # DIBUJO DE CHISPAS
+        for error in errors.errores_activos:
+            if error[0] == "vigilancia":
+                emisor_chispa.update()
+                emisor_chispa.draw(pantalla)
+
         # Visualizar puertas
         pygame.draw.rect(pantalla, (0, 128, 255), puerta_derecha, 2)     # Azul = puerta derecha
         pygame.draw.rect(pantalla, (0, 255, 0), puerta_superior, 2)      # Verde = puerta inferior
+
+        #INTERACCION
+        for error in errors.errores_activos:
+            if error[0] == "vigilancia":
+                if emisor_chispa.jugador_cerca(jugador.rect):
+                    font = pygame.font.SysFont(None, 24)
+                    texto = font.render("Presiona F para interactuar", True, (255, 255, 255))
+                    pantalla.blit(texto, (20, 20))
+
+                    keys = pygame.key.get_pressed()
+                    if keys[pygame.K_f] and not emisor_chispa.interactuado:
+                        print("⚡ ¡Has interactuado con la chispa!")
+                        emisor_chispa.interactuado = True  # evita repetir acción
 
         # Visualizar colisiones
         for pared in paredes:

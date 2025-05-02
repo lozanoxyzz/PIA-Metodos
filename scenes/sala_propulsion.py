@@ -2,10 +2,16 @@ import pygame
 import sys
 from utils.personaje import Personaje
 import utils.errors as errors
+sparks = []
 
 def sala_propulsion(pantalla, ANCHO, ALTO, entrada_por="principal"):
     fondo = pygame.image.load("Assets/imagenes/sala_propulsion.png").convert()
     fondo = pygame.transform.scale(fondo, (ANCHO, ALTO))
+
+    # VERIFICACION DE ERROR EXISTENTE EN LA SALA
+    for error in errors.errores_activos:
+        if error[0] == "propulsion":
+            emisor_chispa = errors.EmisorChispa(ANCHO * error[1][0] / 1366, ALTO * error[1][1] / 768)
 
     escala = min(ANCHO / 1366, ALTO / 768)
     
@@ -56,7 +62,7 @@ def sala_propulsion(pantalla, ANCHO, ALTO, entrada_por="principal"):
         0,
         0,
         ANCHO,
-        int(ALTO * 200 / 768)
+        int(ALTO * 150 / 768)
     ))
 
     # Pared izquierda excepto puerta
@@ -125,6 +131,12 @@ def sala_propulsion(pantalla, ANCHO, ALTO, entrada_por="principal"):
         pantalla.blit(fondo, (0, 0))
         jugador.dibujar(pantalla)
 
+        # DIBUJO DE CHISPAS
+        for error in errors.errores_activos:
+            if error[0] == "propulsion":
+                emisor_chispa.update()
+                emisor_chispa.draw(pantalla)
+
         # (opcional) Visualiza paredes para debug
         for pared in paredes:
             pygame.draw.rect(pantalla, (255, 0, 0), pared, 2)
@@ -133,11 +145,26 @@ def sala_propulsion(pantalla, ANCHO, ALTO, entrada_por="principal"):
         pygame.draw.rect(pantalla, (0, 255, 0), puerta_izquierda, 2)
         pygame.draw.rect(pantalla, (255, 255, 0), puerta_inferior, 2)
 
+        # INTERACCION
+        for error in errors.errores_activos:
+            if error[0] == "propulsion":
+                if emisor_chispa.jugador_cerca(jugador.rect):
+                    font = pygame.font.SysFont(None, 24)
+                    texto = font.render("Presiona F para interactuar", True, (255, 255, 255))
+                    pantalla.blit(texto, (20, 20))
+
+                    keys = pygame.key.get_pressed()
+                    if keys[pygame.K_f] and not emisor_chispa.interactuado:
+                        print("⚡ ¡Has interactuado con la chispa!")
+                        emisor_chispa.interactuado = True  # evita repetir acción
+
         if jugador.rect.colliderect(puerta_izquierda):
             return ("sala_principal", "propulsion")
 
         if jugador.rect.colliderect(puerta_inferior):
             return ("sala_energia", "propulsion")
+
+
 
 
         pygame.display.flip()

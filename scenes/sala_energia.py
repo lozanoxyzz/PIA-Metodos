@@ -2,11 +2,17 @@ import pygame
 import sys
 from utils.personaje import Personaje
 import utils.errors as errors
+sparks = []
 
 def sala_energia(pantalla, ANCHO, ALTO, entrada_por="propulsion"):
 
     fondo = pygame.image.load("Assets/imagenes/sala_energia.png").convert()
     fondo = pygame.transform.scale(fondo, (ANCHO, ALTO))
+
+    # VERIFICACION DE ERROR EXISTENTE EN LA SALA
+    for error in errors.errores_activos:
+        if error[0] == "energia":
+            emisor_chispa = errors.EmisorChispa(ANCHO * error[1][0] / 1366, ALTO * error[1][1]/768)
 
     escala = min(ANCHO / 1366, ALTO / 768)
     # 📍 Posicionar al personaje según desde dónde entra
@@ -28,12 +34,6 @@ def sala_energia(pantalla, ANCHO, ALTO, entrada_por="propulsion"):
 
     else:
         jugador = Personaje(x=ANCHO // 2, y=ALTO // 2, alto_pantalla=ALTO, escala=escala)
-
-    #ERRORES
-    for error in errors.errores_activos:
-        if error[0] == "energia":
-            print("energia")
-            ###PINTAR ERROR
 
     # 🟩 Puerta izquierda
     puerta_izquierda = pygame.Rect(
@@ -127,9 +127,28 @@ def sala_energia(pantalla, ANCHO, ALTO, entrada_por="propulsion"):
         pantalla.blit(fondo, (0, 0))
         jugador.dibujar(pantalla)
 
+        # DIBUJO DE CHISPAS
+        for error in errors.errores_activos:
+            if error[0] == "energia":
+                emisor_chispa.update()
+                emisor_chispa.draw(pantalla)
+
         # Visualizar puertas
         pygame.draw.rect(pantalla, (0, 255, 0), puerta_izquierda, 2)     # Verde = puerta izquierda
         pygame.draw.rect(pantalla, (0, 128, 255), puerta_superior, 2)    # Azul = puerta superior
+
+        # INTERACCION
+        for error in errors.errores_activos:
+            if error[0] == "energia":
+                if emisor_chispa.jugador_cerca(jugador.rect):
+                    font = pygame.font.SysFont(None, 24)
+                    texto = font.render("Presiona F para interactuar", True, (255, 255, 255))
+                    pantalla.blit(texto, (20, 20))
+
+                    keys = pygame.key.get_pressed()
+                    if keys[pygame.K_f] and not emisor_chispa.interactuado:
+                        print("⚡ ¡Has interactuado con la chispa!")
+                        emisor_chispa.interactuado = True  # evita repetir acción
 
         # Visualizar paredes (colisiones)
         for pared in paredes:

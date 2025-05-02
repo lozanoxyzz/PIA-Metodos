@@ -2,11 +2,16 @@ import pygame
 import sys
 from utils.personaje import Personaje
 import utils.errors as errors
-
+sparks = []
 
 def sala_almacenamiento(pantalla, ANCHO, ALTO, entrada_por="principal"):
     fondo = pygame.image.load("Assets/imagenes/sala_almacenamiento.jpeg").convert()
     fondo = pygame.transform.scale(fondo, (ANCHO, ALTO))
+
+    # VERIFICACION DE ERROR EXISTENTE EN LA SALA
+    for error in errors.errores_activos:
+        if error[0] == "almacenamiento":
+            emisor_chispa = errors.EmisorChispa(ANCHO * error[1][0] / 1366, ALTO * error[1][1] / 768)
 
     escala = min(ANCHO / 1366, ALTO / 768)
     # 📍 Posicionar al personaje según desde dónde entra
@@ -116,11 +121,29 @@ def sala_almacenamiento(pantalla, ANCHO, ALTO, entrada_por="principal"):
         pantalla.blit(fondo, (0, 0))
         jugador.dibujar(pantalla)
 
+        # DIBUJO DE CHISPAS
+        for error in errors.errores_activos:
+            if error[0] == "almacenamiento":
+                emisor_chispa.update()
+                emisor_chispa.draw(pantalla)
+
         # Visualizar puertas
       
         pygame.draw.rect(pantalla, (0, 128, 255), puerta_superior, 2)  # Azul = puerta superior
         pygame.draw.rect(pantalla, (0, 128, 255), puerta_inferior, 2)  # Azul = puerta inferior
-       
+
+        # INTERACCION
+        for error in errors.errores_activos:
+            if error[0] == "almacenamiento":
+                if emisor_chispa.jugador_cerca(jugador.rect):
+                    font = pygame.font.SysFont(None, 24)
+                    texto = font.render("Presiona F para interactuar", True, (255, 255, 255))
+                    pantalla.blit(texto, (20, 20))
+
+                    keys = pygame.key.get_pressed()
+                    if keys[pygame.K_f] and not emisor_chispa.interactuado:
+                        print("⚡ ¡Has interactuado con la chispa!")
+                        emisor_chispa.interactuado = True  # evita repetir acción
 
         # Visualizar paredes (colisiones)
         for pared in paredes:
