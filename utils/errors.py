@@ -75,7 +75,8 @@ lista_errores = [("almacenamiento", [1150,380]),
                  ("vigilancia", [420, 210]),]
 
 errores_activos = []
-error = random.choice(lista_errores)
+error = ("vigilancia", [270, 200])
+# error = random.choice(lista_errores)
 errores_activos.append(error)
 
 

@@ -107,11 +107,40 @@ def sala_energia(pantalla, ANCHO, ALTO, entrada_por="propulsion"):
     paredes.append(cuadro_central)
 
     reloj = pygame.time.Clock()
+    modo_interaccion = False
     while True:
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+
+            # Salir del modo de interacción con ESC
+            if modo_interaccion and evento.type == pygame.KEYDOWN:
+                if evento.key == pygame.K_ESCAPE:
+                    modo_interaccion = False
+                    emisor_chispa.interactuado = False
+
+        if modo_interaccion:
+            ventana_ancho = int(ANCHO * 1000 / 1366)
+            ventana_alto =  int(ALTO * 650 / 768)
+            ventana_x = (ANCHO - ventana_ancho) // 2
+            ventana_y = (ALTO - ventana_alto) // 2
+
+            pygame.draw.rect(pantalla, (20, 30, 60), (ventana_x, ventana_y, ventana_ancho, ventana_alto))  # fondo
+            pygame.draw.rect(pantalla, (0, 255, 255), (ventana_x, ventana_y, ventana_ancho, ventana_alto), 4)  # borde
+
+            font = pygame.font.SysFont(None, 24)
+            texto = font.render("Presiona ESC para cerrar", True, (255, 255, 255))
+            pantalla.blit(texto, (ventana_x + 20, ventana_y + ventana_alto - 40))
+
+            # Si ya tienes una imagen:
+            img = pygame.image.load("Assets/imagenes_problemas/imagen_prueba.jpeg")
+            img_escalada = pygame.transform.scale(img, (int(ANCHO * 400 / 1366), int(ALTO * 600 / 768)))
+            pantalla.blit(img_escalada, (ventana_x + 20, ventana_y + 20))
+
+            pygame.display.flip()
+            reloj.tick(60)
+            continue  # <- Muy importante: detiene el juego mientras esté activa la ventana
 
         posicion_anterior = jugador.rect.copy()
         teclas = pygame.key.get_pressed()
@@ -147,8 +176,8 @@ def sala_energia(pantalla, ANCHO, ALTO, entrada_por="propulsion"):
 
                     keys = pygame.key.get_pressed()
                     if keys[pygame.K_f] and not emisor_chispa.interactuado:
-                        print("⚡ ¡Has interactuado con la chispa!")
-                        emisor_chispa.interactuado = True  # evita repetir acción
+                        modo_interaccion = True
+                        emisor_chispa.interactuado = True
 
         # Visualizar paredes (colisiones)
         for pared in paredes:
