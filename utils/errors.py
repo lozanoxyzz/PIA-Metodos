@@ -61,6 +61,201 @@ class EmisorChispa:
 
 
 #(UBICACION, COORDENADAS DEL ERROR)
+## UBICACION DE IMAGEN, RESULTADO, METODO
+problemas_comunicaciones_interpolacion = [("Assets/imagenes_problemas/imagen_prueba.jpeg",100,"Interpolacion Lineal"),  # Interpolacion Lineal
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg",100,"Interpolacion Lineal"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg",100,"Interpolacion Lineal"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100,"Interpolacion Lineal"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100,"Interpolacion Lineal"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100,"Interpolacion Lineal"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Newton Hacia Adelante"),  # Newton Hacia Adelante
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Newton Hacia Adelante"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Newton Hacia Adelante"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Newton Hacia Adelante"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Newton Hacia Adelante"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Newton Hacia Adelante"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Newton Hacia Atras"),  # Newton Hacia Atras
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Newton Hacia Atras"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Newton Hacia Atras"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Newton Hacia Atras"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Newton Hacia Atras"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Newton Hacia Atras"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Newton con Diferencias Divididas"),  #Newton con Diferencias Divididas
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Newton con Diferencias Divididas"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Newton con Diferencias Divididas"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Newton con Diferencias Divididas"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Newton con Diferencias Divididas"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Newton con Diferencias Divididas"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Lagrange"),  #Lagrange
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Lagrange"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Lagrange"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Lagrange"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Lagrange"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Lagrange")]
+
+problemas_ventilacion_nolineales = [("Assets/imagenes_problemas/imagen_prueba.jpeg",100,"Grafico"),  # Grafico
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg",100,"Grafico"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg",100,"Grafico"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100,"Grafico"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100,"Grafico"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100,"Grafico"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100,"Bisectriz"),  # Bisectriz
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100,"Bisectriz"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100,"Bisectriz"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100,"Bisectriz"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100,"Bisectriz"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100,"Bisectriz"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Punto Fijo"),  # Punto Fijo
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Punto Fijo"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Punto Fijo"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Punto Fijo"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Punto Fijo"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Punto Fijo"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Newton - Raphson"),  #Newton - Raphson
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Newton - Raphson"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Newton - Raphson"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Newton - Raphson"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Newton - Raphson"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Newton - Raphson"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Falsa Posicion"),  #Falsa Posicion
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Falsa Posicion"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Falsa Posicion"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Falsa Posicion"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Falsa Posicion"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Falsa Posicion"),
+                                           ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Secante"), #Secante
+                                           ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Secante"),
+                                           ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Secante"),
+                                           ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Secante"),
+                                           ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Secante"),
+                                           ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Secante"),]
+
+problemas_vigilancia_lineales =  [("Assets/imagenes_problemas/imagen_prueba.jpeg",100, "Montante"),  # Montante
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg",100, "Montante"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg",100, "Montante"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Montante"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Montante"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Montante"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Gauss Jordan"),  # Gauss-Jordan
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Gauss Jordan"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Gauss Jordan"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Gauss Jordan"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Gauss Jordan"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Gauss Jordan"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Eliminacion Gaussiana"),  # Eliminacion Gaussiana
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Eliminacion Gaussiana"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Eliminacion Gaussiana"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Eliminacion Gaussiana"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Eliminacion Gaussiana"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Eliminacion Gaussiana"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Gauss - Seidel"),  #Gauss - Seidel
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Gauss - Seidel"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Gauss - Seidel"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Gauss - Seidel"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Gauss - Seidel"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Gauss - Seidel"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Jacobi"),  #Jacobi
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Jacobi"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Jacobi"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Jacobi"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Jacobi"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Jacobi")]
+
+problemas_propulsion_minimos = [("Assets/imagenes_problemas/imagen_prueba.jpeg",100,"Interpolacion Lineal", "Linea Recta"),  # Linea Recta
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg",100, "Linea Recta"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg",100, "Linea Recta"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Linea Recta"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Linea Recta"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Linea Recta"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Cuadratica"),  # Cuadratica
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Cuadratica"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Cuadratica"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Cuadratica"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Cuadratica"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Cuadratica"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Cubica"),  # Cubica
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Cubica"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Cubica"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Cubica"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Cubica"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Cubica"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Lineal con Funcion"),  #Lineal con Funcion
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Lineal con Funcion"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Lineal con Funcion"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Lineal con Funcion"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Lineal con Funcion"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Lineal con Funcion"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Cuadratica con Funcion"),  #Cuadratica con Funcion
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Cuadratica con Funcion"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Cuadratica con Funcion"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Cuadratica con Funcion"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Cuadratica con Funcion"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Cuadratica con Funcion")]
+
+problemas_energia_integracion = [("Assets/imagenes_problemas/imagen_prueba.jpeg",100,"Regla Trapezoidal"),  # Regla Trapezoidal
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg",100,"Regla Trapezoidal"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg",100,"Regla Trapezoidal"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100,"Regla Trapezoidal"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100,"Regla Trapezoidal"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100,"Regla Trapezoidal"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Regla 1/3 Simpson"),  # Regla 1/3 Simpson
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Regla 1/3 Simpson"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Regla 1/3 Simpson"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Regla 1/3 Simpson"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Regla 1/3 Simpson"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Regla 1/3 Simpson"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Regla 3/8 Simpson"),  # Regla 3/8 Simpson
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Regla 3/8 Simpson"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Regla 3/8 Simpson"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Regla 3/8 Simpson"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Regla 3/8 Simpson"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Regla 3/8 Simpson"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Newton - Cotes Cerradas"),  #Newton - Cotes Cerradas
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Newton - Cotes Cerradas"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Newton - Cotes Cerradas"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Newton - Cotes Cerradas"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Newton - Cotes Cerradas"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Newton - Cotes Cerradas"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Newton - Cotes Abiertas"),  #Newton - Cotes Abiertas
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Newton - Cotes Abiertas"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Newton - Cotes Abiertas"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Newton - Cotes Abiertas"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Newton - Cotes Abiertas"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Newton - Cotes Abiertas")]
+
+problemas_almacenamiento_edo = [("Assets/imagenes_problemas/imagen_prueba.jpeg",100,"Interpolacion Lineal"),  # Interpolacion Lineal
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg",100,"Interpolacion Lineal"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg",100,"Interpolacion Lineal"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100,"Interpolacion Lineal"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100,"Interpolacion Lineal"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100,"Interpolacion Lineal"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Newton Hacia Adelante"),  # Newton Hacia Adelante
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Newton Hacia Adelante"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Newton Hacia Adelante"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Newton Hacia Adelante"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Newton Hacia Adelante"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Newton Hacia Adelante"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Newton Hacia Atras"),  # Newton Hacia Atras
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Newton Hacia Atras"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Newton Hacia Atras"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Newton Hacia Atras"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Newton Hacia Atras"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Newton Hacia Atras"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Newton con Diferencias Divididas"),  #Newton con Diferencias Divididas
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Newton con Diferencias Divididas"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Newton con Diferencias Divididas"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Newton con Diferencias Divididas"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Newton con Diferencias Divididas"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Newton con Diferencias Divididas"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Lagrange"),  #Lagrange
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Lagrange"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Lagrange"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Lagrange"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Lagrange"),
+                                          ("Assets/imagenes_problemas/imagen_prueba.jpeg", 100, "Lagrange")]
+
+
+
 lista_errores = [("almacenamiento", [1150,380]),
                  ("almacenamiento", [800,160]),
                  ("comunicaciones", [300, 230]),
@@ -75,7 +270,23 @@ lista_errores = [("almacenamiento", [1150,380]),
                  ("vigilancia", [420, 210]),]
 
 errores_activos = []
-error = ("vigilancia", [270, 200])
+error =   ("almacenamiento", [1150,380])
+
+if error[0] == "vigilancia":
+    problema = random.choice(problemas_vigilancia_lineales)
+elif error[0] == "comunicaciones":
+    problema = random.choice(problemas_comunicaciones_interpolacion)
+elif error[0] == "ventilacion":
+    problema = random.choice(problemas_ventilacion_nolineales)
+elif error[0] == "energia":
+    problema = random.choice(problemas_energia_integracion)
+elif error[0] == "propulsion":
+    problema = random.choice(problemas_propulsion_minimos)
+elif error[0] == "almacenamiento":
+    problema = random.choice(problemas_almacenamiento_edo)
+
+
+
 # error = random.choice(lista_errores)
 errores_activos.append(error)
 
